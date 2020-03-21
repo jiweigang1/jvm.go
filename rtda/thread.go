@@ -98,16 +98,23 @@ func (thread *Thread) InvokeMethodWithShim(method *heap.Method, args []heap.Slot
 	thread.PushFrame(shimFrame)
 	thread.InvokeMethod(method)
 }
-
+/**
+* 执行方法的调用
+*/
 func (thread *Thread) InvokeMethod(method *heap.Method) {
 	//thread._logInvoke(thread.stack.size, method)
+	//获取当前的帧
 	currentFrame := thread.CurrentFrame()
+	//创建新的帧，其用于存储被调用方法的信息。
 	newFrame := thread.NewFrame(method)
+	//新的桢压入栈顶
 	thread.PushFrame(newFrame)
+	//执行方法参数传递，从当前帧的操作数栈中获取，方法的参数信息
+	//把方法的参数信息压入到，新的桢中的本地变量表中
 	if n := method.ParamSlotCount; n > 0 {
 		_passArgs(currentFrame, newFrame, n)
 	}
-
+	//处理异步方法调用情况
 	if method.IsSynchronized() {
 		var monitor *heap.Monitor
 		if method.IsStatic() {
@@ -124,9 +131,15 @@ func (thread *Thread) InvokeMethod(method *heap.Method) {
 		})
 	}
 }
+/**
+ * 处理栈桢的之间的方法参数传递
+ * 主要用于方法调用直接的参数传递
+ */
 func _passArgs(from *Frame, to *Frame, argSlotsCount uint) {
+	//从调用者桢中获取，参数内容
 	args := from.PopTops(argSlotsCount)
 	for i := uint(0); i < argSlotsCount; i++ {
+		//压入到被调用者的本地变量表中。
 		to.SetLocalVar(i, args[i])
 		args[i] = heap.EmptySlot
 	}
