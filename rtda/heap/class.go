@@ -38,6 +38,7 @@ type Class struct {
 	instanceFieldCount uint
 	staticFieldCount   uint
 	StaticFieldSlots   []Slot
+	//存储方法的数组
 	vtable             []*Method // virtual method table
 	JClass             *Object   // java.lang.Class instance
 	SuperClass         *Class

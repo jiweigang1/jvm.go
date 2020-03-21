@@ -17,6 +17,7 @@ const (
 type MethodData struct {
 	MaxStack                uint
 	MaxLocals               uint
+	//指令
 	Code                    []byte
 	exceptionTable          []classfile.ExceptionTableEntry
 	lineNumberTable         []classfile.LineNumberTableEntry

@@ -85,17 +85,22 @@ func (ref *ConstantMethodRef) findMethod(isStatic bool) *Method {
 
 	return nil
 }*/
-
+/**
+* 
+*/
 func (ref *ConstantMethodRef) GetVirtualMethod(obj *Object) *Method {
 	if ref.vslot < 0 {
+		//查找方法的存储的index
 		ref.vslot = getVslot(obj.Class, ref.name, ref.descriptor)
 	}
+	// 如果index 存在，证明已经加载，直接返回方法
 	if ref.vslot >= 0 {
-		return obj.Class.vtable[ref.vslot]
+		return obj.Class.vable[ref.vslot]
 	}
 
 	// TODO: invoking private method ?
 	//println("GetVirtualMethod:", ref.className, ref.name, ref.descriptor)
 	class := ref.getBootLoader().LoadClass(ref.className)
+	//获取类声明的方法
 	return class.getDeclaredMethod(ref.name, ref.descriptor, false)
 }

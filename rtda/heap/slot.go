@@ -8,6 +8,7 @@ var EmptySlot = Slot{0, nil}
 
 type Slot struct {
 	Val int64 // big enough to hold any primitive value
+	//方法
 	Ref *Object
 }
 
