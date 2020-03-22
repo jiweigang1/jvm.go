@@ -32,7 +32,9 @@ cp_info {
 }
 */
 type ConstantInfo interface{}
-
+/**
+* 	读取常量池
+*/
 func readConstantInfo(reader *ClassReader) ConstantInfo {
 	tag := reader.ReadUint8()
 	switch tag {

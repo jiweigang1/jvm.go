@@ -24,6 +24,7 @@ func NewFloatSlot(n float32) Slot {
 func NewDoubleSlot(n float64) Slot {
 	return Slot{Val: int64(math.Float64bits(n))}
 }
+//创建引用类型的操作数栈 
 func NewRefSlot(ref *Object) Slot {
 	return Slot{Ref: ref}
 }

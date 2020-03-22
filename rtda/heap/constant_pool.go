@@ -51,6 +51,9 @@ func newConstantPool(class *Class, cf *classfile.ClassFile) ConstantPool {
 func (cp ConstantPool) GetConstantString(index uint) *ConstantString {
 	return cp.GetConstant(index).(*ConstantString)
 }
+/**
+* 从常量池中获取class
+*/
 func (cp ConstantPool) GetConstantClass(index uint) *ConstantClass {
 	return cp.GetConstant(index).(*ConstantClass)
 }

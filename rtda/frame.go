@@ -8,7 +8,9 @@ type OnPopAction func(popped *Frame)
 
 // stack frame
 type Frame struct {
+	//继承局部变量表
 	LocalVars
+	//继承操作数栈
 	OperandStack
 	lower        *Frame // stack is implemented as linked list
 	Thread       *Thread

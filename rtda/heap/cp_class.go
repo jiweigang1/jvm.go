@@ -18,7 +18,10 @@ func newConstantClass(class *Class, cf *classfile.ClassFile,
 		name:  cf.GetUTF8(cfc.NameIndex),
 	}
 }
-
+/**
+* 获取class常量对应 class内容
+* 如果class内容还没有关联，执行关联
+*/
 func (ref *ConstantClass) GetClass() *Class {
 	if ref.resolved == nil {
 		ref.resolve()

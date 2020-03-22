@@ -76,7 +76,7 @@ func (stack *OperandStack) PopDouble() float64 {
 	stack.size--
 	return stack.Pop().DoubleValue()
 }
-
+//引用类型压入操作数栈顶
 func (stack *OperandStack) PushRef(ref *heap.Object) {
 	stack.Push(heap.NewRefSlot(ref))
 }
