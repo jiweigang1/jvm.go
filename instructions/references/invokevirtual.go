@@ -9,7 +9,9 @@ import (
 // Invoke instance method; dispatch based on class
 type InvokeVirtual struct {
 	base.Index16Instruction
+	//方法的符合引用，包含方法的 描述等信息
 	kMethodRef   *heap.ConstantMethodRef
+	//方法参数的 slot数量，用于获取从操作数栈中获取参数
 	argSlotCount uint
 }
 /**
