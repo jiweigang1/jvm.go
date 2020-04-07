@@ -96,6 +96,7 @@ func _loop(thread *rtda.Thread) {
 func fetchInstruction(method *heap.Method, pc int) (base.Instruction, int) {
 	//如果方法的指令还没有转换，从二进制的字节进行转换
 	if method.Instructions == nil {
+		//执行指令的解析的时候也会解析 指令自身的参数信息 比如 对应的常量池的 Index。
 		method.Instructions = instructions.Decode(method.Code)
 	}
 
