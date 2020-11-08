@@ -14,7 +14,7 @@ type Frame struct {
 	OperandStack
 	lower        *Frame // stack is implemented as linked list
 	Thread       *Thread
-	Method       *heap.Method
+	Method       *heap.Method //当前正在执行的方法
 	maxLocals    uint
 	maxStack     uint
 	NextPC       int // the next instruction after the call
