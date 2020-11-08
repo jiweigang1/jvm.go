@@ -3,10 +3,13 @@ package heap
 import (
 	"github.com/zxh0/jvm.go/classfile"
 )
-
+//方法符合引用
 type ConstantMethodRef struct {
+	//常量池成员应用，
 	ConstantMemberRef
+	//方法调用参数的slot数量
 	ParamSlotCount uint
+	//方法的直接引用
 	resolved       *Method
 	vslot          int
 }
@@ -64,7 +67,7 @@ func (ref *ConstantMethodRef) resolveSpecialMethod() {
 	// todo
 	panic("special method not found!")
 }
-
+//获取当前Class方法的直接引用
 func (ref *ConstantMethodRef) findMethod(isStatic bool) *Method {
 	class := ref.getBootLoader().LoadClass(ref.className)
 	return class.getMethod(ref.name, ref.descriptor, isStatic)
@@ -89,7 +92,7 @@ func (ref *ConstantMethodRef) findMethod(isStatic bool) *Method {
 	return nil
 }*/
 /**
-* 
+* 获取对象实例方法，对象的实例方法存在覆盖和继承
 */
 func (ref *ConstantMethodRef) GetVirtualMethod(obj *Object) *Method {
 	if ref.vslot < 0 {

@@ -63,41 +63,53 @@ func Loop(thread *rtda.Thread) {
 		nonDaemonThreadStop()
 	}
 }
-
+/**
+循环执行一个线程中的指令
+*/
 func _loop(thread *rtda.Thread) {
 	debug := thread.VMOptions.XDebugInstr
 	defer _catchErr(thread) // todo
 
 	for {
+		//获取当前的栈桢
 		frame := thread.CurrentFrame()
+		//把当前栈桢的计数器设置到当前的线程的计数器上
 		pc := frame.NextPC
 		thread.PC = pc
 
-		// fetch instruction
+		// fetch instruction 获取当前的指令，同时返回下一个计数器的值
 		instr, nextPC := fetchInstruction(frame.Method, pc)
+		//栈桢上设置下一个指令的位置
 		frame.NextPC = nextPC
 
-		// execute instruction
+		// execute instruction 执行指令
 		instr.Execute(frame)
 		if debug {
 			_logInstruction(frame, instr)
 		}
+		// 如果当前线程的栈为空，证明当前的线程的指令（方法）已经执行完毕，结束这个线程
 		if thread.IsStackEmpty() {
 			break
 		}
 	}
 }
-
+/**
+* 根据计数器获指定线程的 指令
+*/
 func fetchInstruction(method *heap.Method, pc int) (base.Instruction, int) {
+	//如果方法的指令还没有转换，从二进制的字节进行转换
 	if method.Instructions == nil {
+		//执行指令的解析的时候也会解析 指令自身的参数信息 比如 对应的常量池的 Index。
 		method.Instructions = instructions.Decode(method.Code)
 	}
 
 	instrs := method.Instructions.([]base.Instruction)
+	//获取指令
 	instr := instrs[pc]
 
 	// calc nextPC
 	pc++
+	//计数器，指向下个不为空的指令
 	for pc < len(instrs) && instrs[pc] == nil {
 		pc++
 	}

@@ -14,7 +14,7 @@ type Frame struct {
 	OperandStack
 	lower        *Frame // stack is implemented as linked list
 	Thread       *Thread
-	Method       *heap.Method
+	Method       *heap.Method //当前正在执行的方法
 	maxLocals    uint
 	maxStack     uint
 	NextPC       int // the next instruction after the call
@@ -85,6 +85,7 @@ func (frame *Frame) GetBootLoader() *heap.ClassLoader {
 func (frame *Frame) GetClass() *heap.Class {
 	return frame.Method.Class
 }
+//获取运行时常量池
 func (frame *Frame) GetConstantPool() heap.ConstantPool {
 	return frame.Method.Class.ConstantPool
 }

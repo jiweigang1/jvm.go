@@ -1,6 +1,6 @@
 package heap
 /**
-* 返回方法存储的index值
+* 返回方法存储的 vtable  index值
 * 通过方法名称和方法描述查找返回 
 */
 func getVslot(class *Class, name, descriptor string) int {
