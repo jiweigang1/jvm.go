@@ -32,5 +32,6 @@ func (ref *ConstantClass) GetClass() *Class {
 // todo
 func (ref *ConstantClass) resolve() {
 	// load class
+	// 加载 class
 	ref.resolved = ref.class.bootLoader.LoadClass(ref.name)
 }

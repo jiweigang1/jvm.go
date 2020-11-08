@@ -19,7 +19,10 @@ func newConstantMethodRef(class *Class, cf *classfile.ClassFile,
 	ref.ParamSlotCount = calcParamSlotCount(ref.descriptor)
 	return ref
 }
-
+/**
+* 获取关联的方法
+* static 是否为静态方法
+*/
 func (ref *ConstantMethodRef) GetMethod(static bool) *Method {
 	if ref.resolved == nil {
 		if static {

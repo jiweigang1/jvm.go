@@ -17,7 +17,9 @@ type InvokeVirtual struct {
 */
 func (instr *InvokeVirtual) Execute(frame *rtda.Frame) {
 	if instr.kMethodRef == nil {
+		//获取常量池
 		cp := frame.GetConstantPool()
+		//从常量池中获取方法信息
 		instr.kMethodRef = cp.GetConstant(instr.Index).(*heap.ConstantMethodRef)
 		instr.argSlotCount = instr.kMethodRef.ParamSlotCount
 	}
@@ -27,7 +29,7 @@ func (instr *InvokeVirtual) Execute(frame *rtda.Frame) {
 		frame.Thread.ThrowNPE()
 		return
 	}
-
+	//获取实例的方法
 	method := instr.kMethodRef.GetVirtualMethod(ref)
 	frame.Thread.InvokeMethod(method)
 }

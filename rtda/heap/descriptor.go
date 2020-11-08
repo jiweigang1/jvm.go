@@ -16,7 +16,9 @@ type MethodDescriptor struct {
 func (md MethodDescriptor) getParamCount() uint {
 	return uint(len(md.ParameterTypes))
 }
-
+/**
+* 获取参数的操作数栈的长度
+*/
 func (md MethodDescriptor) getParamSlotCount() uint {
 	slotCount := md.getParamCount()
 	for _, paramType := range md.ParameterTypes {

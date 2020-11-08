@@ -135,6 +135,7 @@ func createMainThread(opts *vm.Options, args []string) *rtda.Thread {
 	mainClass := vmutils.DotToSlash(opts.MainClass)
 	bootArgs := []heap.Slot{heap.NewHackSlot(mainClass), heap.NewHackSlot(args)}
 	mainThread := rtda.NewThread(nil, opts, rt)
+	//启动主线程
 	mainThread.InvokeMethodWithShim(rtda.ShimBootstrapMethod, bootArgs)
 	return mainThread
 }

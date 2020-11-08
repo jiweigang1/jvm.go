@@ -24,7 +24,7 @@ type MethodData struct {
 	ParameterAnnotationData []byte // RuntimeVisibleParameterAnnotations_attribute
 	AnnotationDefaultData   []byte // AnnotationDefault_attribute
 }
-
+// 栈桢中正在执行的方法
 type Method struct {
 	ClassMember
 	MethodData

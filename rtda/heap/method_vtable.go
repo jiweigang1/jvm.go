@@ -12,14 +12,20 @@ func getVslot(class *Class, name, descriptor string) int {
 	// todo
 	return -1
 }
-
+/**
+* 初始化一个 class Vtable ，包含所有的继承的class 方法
+* 
+*/
 func createVtable(class *Class) {
 	class.vtable = copySuperVtable(class)
 
 	for _, m := range class.Methods {
+		//只复制实例方法
 		if isVirtualMethod(m) {
+			//如果已经存在，覆盖掉原有的方法
 			if i := indexOf(class.vtable, m); i > -1 {
 				class.vtable[i] = m // override
+			//如果不存在添加到 vtable 中
 			} else {
 				class.vtable = append(class.vtable, m)
 			}
@@ -50,7 +56,10 @@ func isVirtualMethod(method *Method) bool {
 		!method.IsPrivate() &&
 		method.Name != constructorName
 }
-
+/**
+* 从已经存在的方法中，查找是否存在
+* 如果存在返回 index 值，否则返回 -1
+*/
 func indexOf(vtable []*Method, m *Method) int {
 	for i, vm := range vtable {
 		if vm.Name == m.Name && vm.Descriptor == m.Descriptor {

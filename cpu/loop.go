@@ -10,8 +10,11 @@ import (
 	"github.com/zxh0/jvm.go/vm"
 )
 
+// 执行方法调用
 func ExecMethod(thread *rtda.Thread, method *heap.Method, args []heap.Slot) heap.Slot {
+	// 生成新的栈桢
 	shimFrame := rtda.NewShimFrame(thread, args)
+	//栈桢压入栈顶
 	thread.PushFrame(shimFrame)
 	thread.InvokeMethod(method)
 
