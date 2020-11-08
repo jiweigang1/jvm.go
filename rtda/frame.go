@@ -85,6 +85,7 @@ func (frame *Frame) GetBootLoader() *heap.ClassLoader {
 func (frame *Frame) GetClass() *heap.Class {
 	return frame.Method.Class
 }
+//获取运行时常量池
 func (frame *Frame) GetConstantPool() heap.ConstantPool {
 	return frame.Method.Class.ConstantPool
 }
