@@ -7,7 +7,7 @@ import (
 
 type Constant interface{}
 type ConstantPool []Constant
-
+// 创建运行时常量池
 func newConstantPool(class *Class, cf *classfile.ClassFile) ConstantPool {
 	cfCp := cf.ConstantPool
 	rtCp := make([]Constant, len(cfCp))
